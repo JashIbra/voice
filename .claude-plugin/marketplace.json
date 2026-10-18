@@ -1,0 +1,19 @@
+{
+  "name": "voice-marketplace",
+  "owner": {
+    "name": "IbrahimDekkush",
+    "url": "https://github.com/JashIbra"
+  },
+  "plugins": [
+    {
+      "name": "voice",
+      "source": "./plugins/voice",
+      "description": "Voice mode: every answer kept short and spoken aloud at once through the Mac's speakers (macOS say).",
+      "version": "1.0.0"
+    }
+  ],
+  "metadata": {
+    "description": "A voice mode for Claude Code: ask about the code hands-free and hear the answer.",
+    "version": "1.0.0"
+  }
+}
