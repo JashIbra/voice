@@ -8,6 +8,8 @@ Made for quick questions while your eyes are on the code.
 - `/voice off` turns it off.
 - The answer being spoken stops the moment you send a new message or turn the microphone on (start
   dictating) — no command needed.
+- While the mode is on, a reply that was not spoken is sent back to be spoken before the turn ends (a `Stop`
+  hook, `plugins/voice/hooks/require-speech.py`).
 - macOS only; the sound plays on the machine the session runs on. The microphone watcher is built with
   `swiftc` (Xcode command line tools) on first use; without it, answers are still spoken.
 
@@ -18,8 +20,9 @@ Made for quick questions while your eyes are on the code.
 /plugin install voice@voice-marketplace
 ```
 
-Or copy `plugins/voice/skills/voice/` into `~/.claude/skills/`; the hook that stops the voice on a new message
-comes only with the plugin install (`plugins/voice/hooks/hooks.json`), so add it to your settings by hand then.
+Or copy `plugins/voice/skills/voice/` into `~/.claude/skills/`; the hooks — stopping the voice on a new message,
+and sending an unspoken reply back — come only with the plugin install (`plugins/voice/hooks/hooks.json`), so
+add them to your settings by hand then.
 
 ## License
 
