@@ -26,9 +26,8 @@ Reply with one short line ("Голос включён.") and speak it, so the us
    A question that genuinely cannot be answered that short (a plan, a review, a walk through code) gets
    its normal written answer, and only its first sentence — the verdict — is spoken, unless the user asked
    for the whole answer to be read out.
-2. **Write it** as the reply text, in the user's language.
-3. **Speak it** in the same turn, with a backgrounded Bash call so the reply is not held up, through the
-   script next to this file (this skill's base directory is given when it loads):
+2. **Speak it first**, with a backgrounded Bash call so the reply is not held up, through the script next to
+   this file (this skill's base directory is given when it loads):
 
    ```bash
    "<this skill's base directory>/scripts/speak.sh" <<'TEXT'
@@ -45,6 +44,9 @@ Reply with one short line ("Голос включён.") and speak it, so the us
      Accessibility → Read & Speak (Siri voices included). Name one (`speak.sh Milena`) only when the reply is
      in a language the system voice does not speak; take it from `say -v '?'`.
    - The text goes in through the here-doc, so quotes and `$` need no escaping.
+3. **Then write it once**, as the turn's only reply text, in the user's language: the same answer that was
+   spoken (symbols and paths may stay in the written copy). Write nothing before the call and add no second,
+   shorter version after it — the user listens and does not read two copies of one answer.
 
 ## What goes into the spoken text
 

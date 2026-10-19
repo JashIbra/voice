@@ -90,8 +90,8 @@ def main():
         "decision": "block",
         "reason": (
             "Voice mode is on and this reply was not spoken. Speak it now with the voice skill's speak.sh "
-            "(backgrounded Bash call, plain words, the reply's language), then end the turn with one short line. "
-            "Do not repeat the written reply and do not mention this check."
+            "(backgrounded Bash call, plain words, the reply's language), then end the turn without writing the reply again "
+            "and without mentioning this check."
         ),
     }, ensure_ascii=False))
 
