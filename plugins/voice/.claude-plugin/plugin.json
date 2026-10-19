@@ -1,6 +1,6 @@
 {
   "name": "voice",
-  "description": "Voice mode: every answer is kept short and spoken aloud at once through the Mac's speakers with the macOS say command — for quick questions while your eyes are on the code.",
+  "description": "Text-to-speech voice mode for Claude Code on macOS: every answer is kept short and read aloud at once with the built-in say command — hands-free questions while your eyes are on the code.",
   "version": "1.1.0",
   "author": {
     "name": "IbrahimDekkush",
@@ -8,9 +8,17 @@
   },
   "homepage": "https://github.com/JashIbra/voice",
   "keywords": [
+    "claude-code",
+    "claude-code-plugin",
+    "claude-skill",
     "voice",
+    "voice-mode",
     "text-to-speech",
+    "tts",
+    "speech",
     "macos",
-    "hands-free"
+    "hands-free",
+    "dictation",
+    "accessibility"
   ]
 }

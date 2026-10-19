@@ -1,8 +1,9 @@
-# voice
+# voice — text-to-speech voice mode for Claude Code
 
-A voice mode for Claude Code. `/voice` turns it on: from then on every answer is one or two sentences and is
-spoken aloud at once through the Mac's speakers with the macOS `say` command — no audio file, nothing to tap.
-Made for quick questions while your eyes are on the code.
+A Claude Code plugin and skill that reads Claude's answers aloud (text-to-speech, TTS) on macOS. `/voice` turns it
+on: from then on every answer is one or two sentences and is spoken at once through the Mac's speakers with the
+built-in `say` command — no audio file, no API key, nothing to tap. Made for hands-free code review: ask about the
+code by voice or dictation while your eyes stay on the editor, and hear the answer.
 
 - The spoken copy is plain words only: code, paths and symbol names stay in the written reply.
 - `/voice off` turns it off.
