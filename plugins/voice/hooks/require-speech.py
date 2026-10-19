@@ -45,8 +45,9 @@ def voice_switch(entry):
 
 
 def is_prompt(entry):
-    """A message from the user (typed or a slash command), or a notification — not a tool result."""
-    return entry.get("type") == "user" and not blocks_of(entry, "tool_result") and text_of(
+    """A message from the user (typed or a slash command), or a notification — not a tool result, and not a
+    hook's feedback (stored as a meta entry): that one continues the turn the user started."""
+    return entry.get("type") == "user" and not entry.get("isMeta") and not blocks_of(entry, "tool_result") and text_of(
         entry.get("message", {}).get("content")).strip() != ""
 
 
