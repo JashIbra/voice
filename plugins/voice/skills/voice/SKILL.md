@@ -31,7 +31,7 @@ Reply with one short line ("Голос включён.") and speak it, so the us
    script next to this file (this skill's base directory is given when it loads):
 
    ```bash
-   "<this skill's base directory>/scripts/speak.sh" Milena <<'TEXT'
+   "<this skill's base directory>/scripts/speak.sh" <<'TEXT'
    <the spoken text>
    TEXT
    ```
@@ -41,8 +41,9 @@ Reply with one short line ("Голос включён.") and speak it, so the us
      and the voice goes quiet. (A small watcher, built from `scripts/mic-watch.swift` on first use.)
    - If the user is still dictating when the answer is ready, it waits until the microphone has been off
      for 2 seconds, so the voice never lands in their recording; a new message from them drops it.
-   - Pick the voice for the reply's language: `Milena` for Russian; for another language take a voice
-     from `say -v '?'`.
+   - Name no voice: the Mac's system voice speaks, which is the voice the user picked in System Settings →
+     Accessibility → Read & Speak (Siri voices included). Name one (`speak.sh Milena`) only when the reply is
+     in a language the system voice does not speak; take it from `say -v '?'`.
    - The text goes in through the here-doc, so quotes and `$` need no escaping.
 
 ## What goes into the spoken text

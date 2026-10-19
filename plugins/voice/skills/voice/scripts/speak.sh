@@ -2,7 +2,9 @@
 # Speaks the text read from stdin in the given voice, cutting off any answer still playing or waiting. While the
 # user is dictating it waits for the microphone to go quiet first, and it stops on its own the moment the microphone
 # turns on again. Usage: speak.sh [voice] <<'TEXT' ... TEXT
-voice="${1:-Milena}"
+# With no voice named, the Mac's system voice speaks (System Settings → Accessibility → Read & Speak) — the only way
+# to reach the Siri and premium voices, which `say -v` cannot name.
+voice="${1:-}"
 dir="$(cd "$(dirname "$0")" && pwd)"
 # One folder for the script and for the hook that cancels it: the per-user temp folder, whatever TMPDIR says.
 state="$(getconf DARWIN_USER_TEMP_DIR 2>/dev/null || echo "${TMPDIR:-/tmp}/")"
@@ -33,7 +35,7 @@ if [ -x "$watcher" ]; then
   wait "$children" || exit 0
 fi
 
-say -v "$voice" -r 185 "$text" &
+say ${voice:+-v "$voice"} -r 185 "$text" &
 speech=$!
 children="$speech"
 if [ -x "$watcher" ]; then

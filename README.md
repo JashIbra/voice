@@ -5,6 +5,8 @@ on: from then on every answer is one or two sentences and is spoken at once thro
 built-in `say` command — no audio file, no API key, nothing to tap. Made for hands-free code review: ask about the
 code by voice or dictation while your eyes stay on the editor, and hear the answer.
 
+- It speaks with the Mac's system voice — pick a better one, such as a Siri voice, in System Settings →
+  Accessibility → Read & Speak → System voice.
 - The spoken copy is plain words only: code, paths and symbol names stay in the written reply.
 - `/voice off` turns it off.
 - The answer being spoken stops the moment you send a new message or turn the microphone on (start
