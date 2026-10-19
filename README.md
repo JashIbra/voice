@@ -7,7 +7,8 @@ Made for quick questions while your eyes are on the code.
 - The spoken copy is plain words only: code, paths and symbol names stay in the written reply.
 - `/voice off` turns it off.
 - The answer being spoken stops the moment you send a new message or turn the microphone on (start
-  dictating) — no command needed.
+  dictating) — no command needed. An answer that is ready while you are still dictating waits until the
+  microphone has been off for 2 seconds, so it never lands in your recording; a new message drops it.
 - While the mode is on, a reply that was not spoken is sent back to be spoken before the turn ends (a `Stop`
   hook, `plugins/voice/hooks/require-speech.py`).
 - macOS only; the sound plays on the machine the session runs on. The microphone watcher is built with

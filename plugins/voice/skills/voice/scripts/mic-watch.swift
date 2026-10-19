@@ -1,9 +1,8 @@
-// Stops a running `say` the moment the Mac's microphone starts recording, so the user can cut the answer off
-// just by starting to dictate. Usage: mic-watch <pid of say>. Exits on its own when that process ends.
+// Keeps the spoken answer out of the user's dictation. Two modes:
+//   mic-watch --wait-quiet   returns once the microphone has been off for a moment (exit 0), or gives up (exit 1)
+//   mic-watch <pid of say>   stops that `say` the moment the microphone turns on; exits when the process ends
 import CoreAudio
 import Foundation
-
-guard CommandLine.arguments.count == 2, let speechPid = pid_t(CommandLine.arguments[1]) else { exit(2) }
 
 func property<T>(_ object: AudioObjectID, _ selector: AudioObjectPropertySelector, _ initial: T) -> T? {
     var value = initial
@@ -24,8 +23,32 @@ func microphoneIsOn() -> Bool {
     return running != 0
 }
 
-// Only a microphone that turns ON while the answer is playing counts: an app that already holds it open (a call,
-// a recorder left running) must not silence every answer.
+let tick: useconds_t = 150_000
+
+if CommandLine.arguments.count == 2, CommandLine.arguments[1] == "--wait-quiet" {
+    // The user is dictating while the answer is ready: speaking now would land in their recording. Wait until the
+    // microphone has been off for 2 s — a pause between two dictated phrases is shorter than that — and give up
+    // after 10 minutes, so a call or a recorder left running does not keep an answer waiting forever.
+    let quietNeeded = 2.0
+    let giveUpAt = Date().addingTimeInterval(600)
+    var quietSince: Date? = microphoneIsOn() ? nil : Date().addingTimeInterval(-quietNeeded)
+    while Date() < giveUpAt {
+        if microphoneIsOn() {
+            quietSince = nil
+        } else {
+            let since = quietSince ?? Date()
+            quietSince = since
+            if Date().timeIntervalSince(since) >= quietNeeded { exit(0) }
+        }
+        usleep(tick)
+    }
+    exit(1)
+}
+
+guard CommandLine.arguments.count == 2, let speechPid = pid_t(CommandLine.arguments[1]) else { exit(2) }
+
+// Only a microphone that turns ON while the answer is playing counts: the speech starts only once it is off, so
+// an "on" seen here is the user starting to dictate again.
 var wasOn = microphoneIsOn()
 while kill(speechPid, 0) == 0 {
     let isOn = microphoneIsOn()
@@ -34,5 +57,5 @@ while kill(speechPid, 0) == 0 {
         break
     }
     wasOn = isOn
-    usleep(150_000)
+    usleep(tick)
 }

@@ -39,6 +39,8 @@ Reply with one short line ("Голос включён.") and speak it, so the us
    - The script cuts off the previous answer first, so a new one never talks over it.
    - It stops the answer by itself the moment the microphone starts recording: the user starts dictating,
      and the voice goes quiet. (A small watcher, built from `scripts/mic-watch.swift` on first use.)
+   - If the user is still dictating when the answer is ready, it waits until the microphone has been off
+     for 2 seconds, so the voice never lands in their recording; a new message from them drops it.
    - Pick the voice for the reply's language: `Milena` for Russian; for another language take a voice
      from `say -v '?'`.
    - The text goes in through the here-doc, so quotes and `$` need no escaping.

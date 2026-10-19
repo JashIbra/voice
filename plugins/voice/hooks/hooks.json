@@ -1,12 +1,12 @@
 {
-  "description": "Voice mode: a new message from the user cuts off the answer still being spoken, and a reply that was never spoken is sent back to be spoken.",
+  "description": "Voice mode: a new message from the user cuts off the answer being spoken or still waiting to be spoken, and a reply that was never spoken is sent back to be spoken.",
   "hooks": {
     "UserPromptSubmit": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "killall say 2>/dev/null; exit 0",
+            "command": "state=\"$(getconf DARWIN_USER_TEMP_DIR 2>/dev/null || echo /tmp/)\"; kill \"$(cat \"${state}voice-speak.pid\" 2>/dev/null)\" 2>/dev/null; killall say 2>/dev/null; exit 0",
             "timeout": 5
           }
         ]
