@@ -10,8 +10,10 @@ if [ ! -x "$watcher" ] || [ "$dir/mic-watch.swift" -nt "$watcher" ]; then
   swiftc -O "$dir/mic-watch.swift" -o "$watcher" >/dev/null 2>&1
 fi
 
+# Read before backgrounding: a command started with & in a script gets /dev/null as its stdin, not ours.
+text="$(cat)"
 killall say 2>/dev/null
-say -v "$voice" -r 185 -f - &
+say -v "$voice" -r 185 "$text" &
 speech=$!
 [ -x "$watcher" ] && "$watcher" "$speech" &
 wait "$speech"
