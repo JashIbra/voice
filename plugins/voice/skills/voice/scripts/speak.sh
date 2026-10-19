@@ -16,6 +16,9 @@ fi
 
 # Read before backgrounding: a command started with & in a script gets /dev/null as its stdin, not ours.
 text="$(cat)"
+# The synthesizer reads marks aloud ("backslash", "quote"): drop quotes, backslashes and markdown, and say an arrow
+# as a pause.
+text="$(printf '%s' "$text" | perl -CSD -Mutf8 -pe 's/[«»„“”"`\\*#_|]//g; s/\s*[→⇒]\s*/, /g')"
 
 # Only the newest answer may speak: an older one still waiting for the microphone would talk over it later.
 kill "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null
