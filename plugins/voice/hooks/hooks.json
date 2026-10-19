@@ -1,0 +1,12 @@
+{
+  "description": "Voice mode: a new message from the user cuts off the answer still being spoken.",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": "killall say 2>/dev/null; exit 0", "timeout": 5 }
+        ]
+      }
+    ]
+  }
+}
